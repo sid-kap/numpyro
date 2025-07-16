@@ -93,7 +93,6 @@ results for all the data points, but does so by using JAX's auto-vectorize trans
 
 from __future__ import annotations
 
-
 from types import TracebackType
 from typing import Callable, Optional, Union
 import warnings

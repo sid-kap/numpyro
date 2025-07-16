@@ -5,7 +5,6 @@
 This provides a small set of utilities in NumPyro that are used to diagnose posterior samples.
 """
 
-
 from itertools import product
 from typing import Union
 
