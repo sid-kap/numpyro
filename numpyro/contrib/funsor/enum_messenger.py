@@ -71,8 +71,8 @@ class DimStack:
     def __init__(self):
         self._stack = [
             StackFrame(
-                name_to_dim=dict(),
-                dim_to_name=dict(),
+                name_to_dim={},
+                dim_to_name={},
                 parents=(),
                 iter_parents=(),
                 keep=False,
@@ -238,7 +238,7 @@ class NamedMessenger(DimStackCleanupMessenger):
 
     @staticmethod
     def _get_name_to_dim(batch_names, name_to_dim=None, dim_type=DimType.LOCAL):
-        name_to_dim = dict() if name_to_dim is None else name_to_dim.copy()
+        name_to_dim = {} if name_to_dim is None else name_to_dim.copy()
 
         # interpret all names/dims as requests since we only run this function once
         for name in batch_names:
@@ -256,7 +256,7 @@ class NamedMessenger(DimStackCleanupMessenger):
     @classmethod  # only depends on the global _DIM_STACK state, not self
     def _pyro_to_data(cls, msg):
         (funsor_value,) = msg["args"]
-        name_to_dim = msg["kwargs"].setdefault("name_to_dim", dict())
+        name_to_dim = msg["kwargs"].setdefault("name_to_dim", {})
         dim_type = msg["kwargs"].setdefault("dim_type", DimType.LOCAL)
 
         batch_names = tuple(funsor_value.inputs.keys())
@@ -296,7 +296,7 @@ class NamedMessenger(DimStackCleanupMessenger):
         else:
             raw_value = msg["args"][0]
             output = msg["kwargs"].setdefault("output", None)
-        dim_to_name = msg["kwargs"].setdefault("dim_to_name", dict())
+        dim_to_name = msg["kwargs"].setdefault("dim_to_name", {})
         dim_type = msg["kwargs"].setdefault("dim_type", DimType.LOCAL)
 
         event_dim = len(output.shape) if output else 0
@@ -490,14 +490,14 @@ class plate(GlobalNamedMessenger):
         self.subsample_size = indices.shape[0]
         self._indices = funsor.Tensor(
             indices,
-            dict([(self.name, funsor.Bint[self.subsample_size])]),
+            {self.name: funsor.Bint[self.subsample_size]},
             self.subsample_size,
         )
         super(plate, self).__init__(None)
 
     def __enter__(self):
         super().__enter__()  # do this first to take care of globals recycling
-        name_to_dim = dict([(self.name, self.dim)]) if self.dim is not None else dict()
+        name_to_dim = {self.name: self.dim} if self.dim is not None else {}
         indices = to_data(
             self._indices, name_to_dim=name_to_dim, dim_type=DimType.VISIBLE
         )
@@ -590,9 +590,7 @@ class enum(BaseEnumMessenger):
 
         size = msg["fn"].enumerate_support(expand=False).shape[0]
         raw_value = jnp.arange(0, size)
-        funsor_value = funsor.Tensor(
-            raw_value, dict([(msg["name"], funsor.Bint[size])]), size
-        )
+        funsor_value = funsor.Tensor(raw_value, {msg["name"]: funsor.Bint[size]}, size)
 
         msg["value"] = to_data(funsor_value)
         msg["done"] = True
@@ -665,7 +663,7 @@ def to_funsor(x, output=None, dim_to_name=None, dim_type=DimType.LOCAL):
     :return: A Funsor equivalent to `x`.
     :rtype: funsor.terms.Funsor
     """
-    dim_to_name = dict() if dim_to_name is None else dim_to_name
+    dim_to_name = {} if dim_to_name is None else dim_to_name
 
     initial_msg = {
         "type": "to_funsor",

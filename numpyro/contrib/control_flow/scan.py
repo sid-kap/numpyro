@@ -493,9 +493,7 @@ def scan(
                 dim_to_name = msg["infer"].get("dim_to_name")
                 to_funsor(
                     msg["value"],
-                    dim_to_name=dict(
-                        [(k, dim_to_name[k]) for k in sorted(dim_to_name)]
-                    ),
+                    dim_to_name={k: dim_to_name[k] for k in sorted(dim_to_name)},
                 )
                 apply_stack(msg)
 
