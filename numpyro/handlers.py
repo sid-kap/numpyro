@@ -167,7 +167,7 @@ class trace(Messenger):
 
     def __enter__(self) -> TraceT:  # type: ignore [override]
         super(trace, self).__enter__()
-        self.trace: TraceT = dict()
+        self.trace: TraceT = {}
         return self.trace
 
     def postprocess_message(self, msg: Message) -> None:

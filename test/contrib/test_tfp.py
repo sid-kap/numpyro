@@ -120,13 +120,13 @@ def make_kernel_fn(target_log_prob_fn):
     [
         ("HamiltonianMonteCarlo", dict(step_size=0.05, num_leapfrog_steps=10)),
         ("NoUTurnSampler", dict(step_size=0.05)),
-        ("RandomWalkMetropolis", dict()),
+        ("RandomWalkMetropolis", {}),
         ("SliceSampler", dict(step_size=1.0, max_doublings=5)),
         (
             "UncalibratedHamiltonianMonteCarlo",
             dict(step_size=0.05, num_leapfrog_steps=10),
         ),
-        ("UncalibratedRandomWalk", dict()),
+        ("UncalibratedRandomWalk", {}),
     ],
 )
 @pytest.mark.filterwarnings("ignore:can't resolve package")
@@ -173,7 +173,7 @@ def test_mcmc_kernels(kernel, kwargs):
     "kernel, kwargs",
     [
         ("MetropolisAdjustedLangevinAlgorithm", dict(step_size=1.0)),
-        ("RandomWalkMetropolis", dict()),
+        ("RandomWalkMetropolis", {}),
         ("SliceSampler", dict(step_size=1.0, max_doublings=5)),
         ("UncalibratedLangevin", dict(step_size=0.1)),
         (

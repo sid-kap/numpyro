@@ -146,7 +146,7 @@ class Transform(object):
 
 class ParameterFreeTransform(Transform):
     def tree_flatten(self):
-        return (), ((), dict())
+        return (), ((), {})
 
     def __eq__(self, other: TransformT) -> bool:
         return isinstance(other, type(self))
@@ -189,7 +189,7 @@ class _InverseTransform(Transform):
         return self._inv.forward_shape(shape)
 
     def tree_flatten(self):
-        return (self._inv,), (("_inv",), dict())
+        return (self._inv,), (("_inv",), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, _InverseTransform):
@@ -286,7 +286,7 @@ class AffineTransform(Transform):
         )
 
     def tree_flatten(self):
-        return (self.loc, self.scale, self.domain), (("loc", "scale", "domain"), dict())
+        return (self.loc, self.scale, self.domain), (("loc", "scale", "domain"), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, AffineTransform):
@@ -597,7 +597,7 @@ class ExpTransform(Transform):
         return x
 
     def tree_flatten(self):
-        return (self.domain,), (("domain",), dict())
+        return (self.domain,), (("domain",), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, ExpTransform):
@@ -680,7 +680,7 @@ class IndependentTransform(Transform):
     def tree_flatten(self):
         return (self.base_transform, self.reinterpreted_batch_ndims), (
             ("base_transform", "reinterpreted_batch_ndims"),
-            dict(),
+            {},
         )
 
     def __eq__(self, other: TransformT) -> bool:
@@ -806,7 +806,7 @@ class LowerCholeskyAffine(Transform):
         return lax.broadcast_shapes(shape, self.loc.shape, self.scale_tril.shape[:-1])
 
     def tree_flatten(self):
-        return (self.loc, self.scale_tril), (("loc", "scale_tril"), dict())
+        return (self.loc, self.scale_tril), (("loc", "scale_tril"), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, LowerCholeskyAffine):
@@ -952,7 +952,7 @@ class PermuteTransform(Transform):
         return jnp.full(jnp.shape(x)[:-1], 0.0)
 
     def tree_flatten(self):
-        return (self.permutation,), (("permutation",), dict())
+        return (self.permutation,), (("permutation",), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, PermuteTransform):
@@ -985,7 +985,7 @@ class PowerTransform(Transform):
         return lax.broadcast_shapes(shape, getattr(self.exponent, "shape", ()))
 
     def tree_flatten(self):
-        return (self.exponent,), (("exponent",), dict())
+        return (self.exponent,), (("exponent",), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, PowerTransform):
@@ -1069,7 +1069,7 @@ class SimplexToOrderedTransform(Transform):
         return J_logdet
 
     def tree_flatten(self):
-        return (self.anchor_point,), (("anchor_point",), dict())
+        return (self.anchor_point,), (("anchor_point",), {})
 
     def __eq__(self, other: TransformT) -> bool:
         if not isinstance(other, SimplexToOrderedTransform):

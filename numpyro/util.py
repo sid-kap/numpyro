@@ -174,7 +174,7 @@ def identity(x, *args, **kwargs):
 def cached_by(outer_fn, *keys):
     # Restrict cache size to prevent ref cycles.
     max_size = 8
-    outer_fn._cache = getattr(outer_fn, "_cache", dict())
+    outer_fn._cache = getattr(outer_fn, "_cache", {})
 
     def _wrapped(fn):
         fn_cache = outer_fn._cache

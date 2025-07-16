@@ -211,7 +211,7 @@ def taylor_proxy(reference_params, degree):
                     hessian(log_likelihood)(ref_params_flat, new_idxs)
                 )
 
-            last_ref_subsample_taylor = list(gibbs_state._asdict().values())
+            last_ref_subsample_taylor = list(gibbs_state._as{}.values())
 
             for stat, new_block_values, last_values in zip(
                 TPState._fields,

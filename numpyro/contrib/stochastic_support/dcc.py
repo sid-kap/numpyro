@@ -84,7 +84,7 @@ class StochasticSupportInference(ABC):
         """
         Extract the sites from the trace that are annotated with `infer={"branching": True}`.
         """
-        branching_trace = dict()
+        branching_trace = {}
         for site in tr.values():
             if (
                 site["type"] == "sample"
@@ -139,7 +139,7 @@ class StochasticSupportInference(ABC):
         rng_key, subkey = random.split(rng_key)
         branching_traces = self._find_slps(subkey, *args, **kwargs)
 
-        inferences = dict()
+        inferences = {}
         for key, bt in branching_traces.items():
             rng_key, subkey = random.split(rng_key)
             inferences[key] = self._run_inference(subkey, bt, *args, **kwargs)

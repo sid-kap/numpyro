@@ -270,7 +270,7 @@ class NamedMessenger(DimStackCleanupMessenger):
 
     @staticmethod
     def _get_dim_to_name(batch_shape, dim_to_name=None, dim_type=DimType.LOCAL):
-        dim_to_name = dict() if dim_to_name is None else dim_to_name.copy()
+        dim_to_name = {} if dim_to_name is None else dim_to_name.copy()
         batch_dim = len(batch_shape)
 
         # interpret all names/dims as requests since we only run this function once
@@ -359,7 +359,7 @@ class LocalNamedMessenger(NamedMessenger):
             saved_frame = self._saved_frames.pop()
             name_to_dim, dim_to_name = saved_frame.name_to_dim, saved_frame.dim_to_name
         else:
-            name_to_dim, dim_to_name = dict(), dict()
+            name_to_dim, dim_to_name = {}, {}
 
         frame = StackFrame(
             name_to_dim=name_to_dim,
@@ -692,7 +692,7 @@ def to_data(x, name_to_dim=None, dim_type=DimType.LOCAL):
         which can be used to interact with the global :class:`DimStack`.
     :return: A non-funsor equivalent to `x`.
     """
-    name_to_dim = dict() if name_to_dim is None else name_to_dim
+    name_to_dim = {} if name_to_dim is None else name_to_dim
 
     initial_msg = {
         "type": "to_data",
