@@ -1204,7 +1204,7 @@ def _euclidean_kinetic_energy_grad(inverse_mass_matrix, r):
     if isinstance(inverse_mass_matrix, dict):
         r_grad = {}
         for site_names, inverse_mm in inverse_mass_matrix.items():
-            r_block = dict([(k, r[k]) for k in site_names])
+            r_block = {k: r[k] for k in site_names}
             r_grad.update(_euclidean_kinetic_energy_grad(inverse_mm, r_block))
         return r_grad
 

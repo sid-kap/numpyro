@@ -155,14 +155,14 @@ class trace(Messenger):
 
        >>> exec_trace = trace(seed(model, random.PRNGKey(0))).get_trace()
        >>> pp.pprint(exec_trace)  # doctest: +SKIP
-       dict([('a',
+       {'a':
                      {'args': (),
                       'fn': <numpyro.distributions.continuous.Normal object at 0x7f9e689b1eb8>,
                       'is_observed': False,
                       'kwargs': {'rng_key': Array([0, 0], dtype=uint32)},
                       'name': 'a',
                       'type': 'sample',
-                      'value': Array(-0.20584235, dtype=float32)})])
+                      'value': Array(-0.20584235, dtype=float32)}}
     """
 
     def __enter__(self) -> TraceT:  # type: ignore [override]
@@ -201,7 +201,7 @@ class replay(Messenger):
     values from the corresponding site names in `trace`.
 
     :param fn: Python callable with NumPyro primitives.
-    :param trace: an dict containing execution metadata.
+    :param trace: a dict containing execution metadata.
 
     **Example:**
 

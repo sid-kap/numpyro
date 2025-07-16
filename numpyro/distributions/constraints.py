@@ -124,7 +124,7 @@ class Constraint(object):
 
 class ParameterFreeConstraint(Constraint):
     def tree_flatten(self):
-        return (), ((), {})
+        return (), ((), dict())
 
 
 class _SingletonConstraint(ParameterFreeConstraint):
@@ -299,7 +299,7 @@ class _GreaterThan(Constraint):
         return jax.numpy.broadcast_to(self.lower_bound + 1, jax.numpy.shape(prototype))
 
     def tree_flatten(self):
-        return (self.lower_bound,), (("lower_bound",), {})
+        return (self.lower_bound,), (("lower_bound",), dict())
 
     def __eq__(self, other: ConstraintT) -> bool:
         if not isinstance(other, _GreaterThan):
@@ -420,7 +420,7 @@ class _LessThan(Constraint):
         return jax.numpy.broadcast_to(self.upper_bound - 1, jax.numpy.shape(prototype))
 
     def tree_flatten(self):
-        return (self.upper_bound,), (("upper_bound",), {})
+        return (self.upper_bound,), (("upper_bound",), dict())
 
     def __eq__(self, other: ConstraintT) -> bool:
         if not isinstance(other, _LessThan):
@@ -461,7 +461,7 @@ class _IntegerInterval(Constraint):
     def tree_flatten(self):
         return (self.lower_bound, self.upper_bound), (
             ("lower_bound", "upper_bound"),
-            {},
+            dict(),
         )
 
     def __eq__(self, other: ConstraintT) -> bool:
@@ -491,7 +491,7 @@ class _IntegerGreaterThan(Constraint):
         return jax.numpy.broadcast_to(self.lower_bound, jax.numpy.shape(prototype))
 
     def tree_flatten(self):
-        return (self.lower_bound,), (("lower_bound",), {})
+        return (self.lower_bound,), (("lower_bound",), dict())
 
     def __eq__(self, other: ConstraintT) -> bool:
         if not isinstance(other, _IntegerGreaterThan):
@@ -539,7 +539,7 @@ class _Interval(Constraint):
     def tree_flatten(self):
         return (self.lower_bound, self.upper_bound), (
             ("lower_bound", "upper_bound"),
-            {},
+            dict(),
         )
 
 
@@ -601,7 +601,7 @@ class _Multinomial(Constraint):
         return jax.numpy.broadcast_to(value, prototype.shape)
 
     def tree_flatten(self):
-        return (self.upper_bound,), (("upper_bound",), {})
+        return (self.upper_bound,), (("upper_bound",), dict())
 
     def __eq__(self, other: ConstraintT) -> bool:
         if not isinstance(other, _Multinomial):
@@ -789,7 +789,7 @@ class _ZeroSum(Constraint):
         return jax.numpy.zeros_like(prototype)
 
     def tree_flatten(self):
-        return (self.event_dim,), (("event_dim",), {})
+        return (self.event_dim,), (("event_dim",), dict())
 
 
 # TODO: Make types consistent

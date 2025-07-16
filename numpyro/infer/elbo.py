@@ -1025,7 +1025,7 @@ def _partition(
     model_sum_deps: dict[str, frozenset[str]], sum_vars: frozenset[str]
 ) -> list[tuple[frozenset[str], frozenset[str]]]:
     # Construct a bipartite graph between model_sum_deps and the sum_vars
-    neighbors: dict[str, list[str]] = dict([(t, []) for t in model_sum_deps.keys()])
+    neighbors: dict[str, list[str]] = {t: [] for t in model_sum_deps.keys()}
     for key, deps in model_sum_deps.items():
         for dim in deps:
             if dim in sum_vars:
@@ -1036,7 +1036,7 @@ def _partition(
     components = []
     while neighbors:
         v, pending = neighbors.popitem()
-        component = dict([(v, None)])  # used as an OrderedSet
+        component = {v: None}  # used as an OrderedSet
         for v in pending:
             component[v] = None
         while pending:

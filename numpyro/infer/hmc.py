@@ -94,7 +94,7 @@ def momentum_generator(prototype_r, mass_matrix_sqrt, rng_key):
         rng_keys = random.split(rng_key, len(mass_matrix_sqrt))
         r = {}
         for (site_names, mm_sqrt), rng_key in zip(mass_matrix_sqrt.items(), rng_keys):
-            r_block = dict([(k, prototype_r[k]) for k in site_names])
+            r_block = {k: prototype_r[k] for k in site_names}
             r.update(momentum_generator(r_block, mm_sqrt, rng_key))
         return r
 

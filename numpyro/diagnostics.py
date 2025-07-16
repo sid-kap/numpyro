@@ -271,17 +271,15 @@ def summary(
         r_hat = split_gelman_rubin(value)
         hpd_lower = "{:.1f}%".format(50 * (1 - prob))
         hpd_upper = "{:.1f}%".format(50 * (1 + prob))
-        summary_dict[name] = dict(
-            [
-                ("mean", mean),
-                ("std", std),
-                ("median", median),
-                (hpd_lower, hpd[0]),
-                (hpd_upper, hpd[1]),
-                ("n_eff", n_eff),
-                ("r_hat", r_hat),
-            ]
-        )
+        summary_dict[name] = {
+            "mean": mean,
+            "std": std,
+            "median": median,
+            hpd_lower: hpd[0],
+            hpd_upper: hpd[1],
+            "n_eff": n_eff,
+            "r_hat": r_hat,
+        }
     return summary_dict
 
 
