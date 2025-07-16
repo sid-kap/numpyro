@@ -1,7 +1,7 @@
 # Copyright Contributors to the Pyro project.
 # SPDX-License-Identifier: Apache-2.0
 
-from typing import Any, Callable, OrderedDict as OrderedDictType
+from typing import Any, Callable, dict as dictType
 
 import jax
 import jax.numpy as jnp
@@ -98,7 +98,7 @@ class SDVI(StochasticSupportInference):
     def _run_inference(
         self,
         rng_key: jax.Array,
-        branching_trace: OrderedDictType,
+        branching_trace: dictType,
         *args: Any,
         **kwargs: Any,
     ) -> RunInferenceResult:
@@ -121,7 +121,7 @@ class SDVI(StochasticSupportInference):
         self,
         rng_key: jax.Array,
         guides: dict[str, tuple[AutoGuide, dict[str, Any]]],
-        branching_traces: dict[str, OrderedDictType],
+        branching_traces: dict[str, dictType],
         *args: Any,
         **kwargs: Any,
     ) -> SDVIResult:

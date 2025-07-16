@@ -5,7 +5,7 @@
 This provides a small set of utilities in NumPyro that are used to diagnose posterior samples.
 """
 
-from collections import OrderedDict
+
 from itertools import product
 from typing import Union
 
@@ -271,7 +271,7 @@ def summary(
         r_hat = split_gelman_rubin(value)
         hpd_lower = "{:.1f}%".format(50 * (1 - prob))
         hpd_upper = "{:.1f}%".format(50 * (1 + prob))
-        summary_dict[name] = OrderedDict(
+        summary_dict[name] = dict(
             [
                 ("mean", mean),
                 ("std", std),
