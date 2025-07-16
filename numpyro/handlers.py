@@ -201,7 +201,7 @@ class replay(Messenger):
     values from the corresponding site names in `trace`.
 
     :param fn: Python callable with NumPyro primitives.
-    :param trace: a dict containing execution metadata.
+    :param trace: dict containing execution metadata.
 
     **Example:**
 
