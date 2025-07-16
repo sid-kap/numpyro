@@ -72,7 +72,7 @@ def discrete(prob):
         ),
         (
             plate_improper_subsets,
-            {},
+            dict(),
             {
                 "plate_groups": {"N": ["x"], "M": ["x"], None: []},
                 "plate_data": {"N": {"parent": None}, "M": {"parent": "N"}},
@@ -82,7 +82,7 @@ def discrete(prob):
         ),
         (
             nested_plates,
-            {},
+            dict(),
             {
                 "plate_groups": {
                     "N": ["x", "y"],

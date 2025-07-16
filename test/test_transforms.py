@@ -63,7 +63,7 @@ class T(namedtuple("TestCase", ["transform_cls", "params", "kwargs"])):
 
 
 TRANSFORMS = {
-    "affine": T(AffineTransform, (np.array([1.0, 2.0]), np.array([3.0, 4.0])), {}),
+    "affine": T(AffineTransform, (np.array([1.0, 2.0]), np.array([3.0, 4.0])), dict()),
     "compose": T(
         ComposeTransform,
         (
@@ -72,7 +72,7 @@ TRANSFORMS = {
                 ExpTransform(),
             ],
         ),
-        {},
+        dict(),
     ),
     "independent": T(
         IndependentTransform,
@@ -80,7 +80,7 @@ TRANSFORMS = {
         dict(reinterpreted_batch_ndims=1),
     ),
     "lower_cholesky_affine": T(
-        LowerCholeskyAffine, (np.array([1.0, 2.0]), np.eye(2)), {}
+        LowerCholeskyAffine, (np.array([1.0, 2.0]), np.eye(2)), dict()
     ),
     "pack_rfft_odd": T(
         PackRealFastFourierCoefficientsTransform, (), dict(transform_shape=(7,))
@@ -88,11 +88,11 @@ TRANSFORMS = {
     "pack_rfft_even": T(
         PackRealFastFourierCoefficientsTransform, (), dict(transform_shape=(7,))
     ),
-    "permute": T(PermuteTransform, (np.array([1, 0]),), {}),
+    "permute": T(PermuteTransform, (np.array([1, 0]),), dict()),
     "power": T(
         PowerTransform,
         (np.array(2.0),),
-        {},
+        dict(),
     ),
     "rfft": T(
         RealFastFourierTransform,
@@ -102,42 +102,42 @@ TRANSFORMS = {
     "recursive_linear": T(
         RecursiveLinearTransform,
         (np.eye(5),),
-        {},
+        dict(),
     ),
     "simplex_to_ordered": T(
         SimplexToOrderedTransform,
         (np.array(1.0),),
-        {},
+        dict(),
     ),
     "unpack": T(UnpackTransform, (), dict(unpack_fn=_unpack)),
     # unparametrized transforms
-    "abs": T(AbsTransform, (), {}),
-    "cholesky": T(CholeskyTransform, (), {}),
-    "complex": T(ComplexTransform, (), {}),
-    "corr_chol": T(CorrCholeskyTransform, (), {}),
-    "corr_matrix_chol": T(CorrMatrixCholeskyTransform, (), {}),
-    "exp": T(ExpTransform, (), {}),
-    "identity": T(IdentityTransform, (), {}),
-    "l1_ball": T(L1BallTransform, (), {}),
-    "lower_cholesky": T(LowerCholeskyTransform, (), {}),
-    "ordered": T(OrderedTransform, (), {}),
-    "scaled_unit_lower_cholesky": T(ScaledUnitLowerCholeskyTransform, (), {}),
-    "sigmoid": T(SigmoidTransform, (), {}),
-    "softplus": T(SoftplusTransform, (), {}),
-    "softplus_lower_cholesky": T(SoftplusLowerCholeskyTransform, (), {}),
-    "stick_breaking": T(StickBreakingTransform, (), {}),
+    "abs": T(AbsTransform, (), dict()),
+    "cholesky": T(CholeskyTransform, (), dict()),
+    "complex": T(ComplexTransform, (), dict()),
+    "corr_chol": T(CorrCholeskyTransform, (), dict()),
+    "corr_matrix_chol": T(CorrMatrixCholeskyTransform, (), dict()),
+    "exp": T(ExpTransform, (), dict()),
+    "identity": T(IdentityTransform, (), dict()),
+    "l1_ball": T(L1BallTransform, (), dict()),
+    "lower_cholesky": T(LowerCholeskyTransform, (), dict()),
+    "ordered": T(OrderedTransform, (), dict()),
+    "scaled_unit_lower_cholesky": T(ScaledUnitLowerCholeskyTransform, (), dict()),
+    "sigmoid": T(SigmoidTransform, (), dict()),
+    "softplus": T(SoftplusTransform, (), dict()),
+    "softplus_lower_cholesky": T(SoftplusLowerCholeskyTransform, (), dict()),
+    "stick_breaking": T(StickBreakingTransform, (), dict()),
     # neural transforms
     "iaf": T(
         # autoregressive_nn is a non-jittable arg, which does not fit well with
         # the current test pipeline, which assumes jittable args, and non-jittable kwargs
         partial(InverseAutoregressiveTransform, _smoke_neural_network),
         (np.array(-1.0), np.array(1.0)),
-        {},
+        dict(),
     ),
     "bna": T(
         partial(BlockNeuralAutoregressiveTransform, _smoke_neural_network),
         (),
-        {},
+        dict(),
     ),
     "reshape": T(
         ReshapeTransform, (), {"forward_shape": (3, 4), "inverse_shape": (4, 3)}

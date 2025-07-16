@@ -1151,7 +1151,7 @@ def test_vectorized_sampling_zero_sized():
 
 
 def test_fixed_num_steps():
-    data = {}
+    data = dict()
     data["x"] = np.random.rand(10)
     data["y"] = data["x"] + np.random.rand(10) * 0.1
 
@@ -1178,7 +1178,7 @@ def test_fixed_num_steps():
 
 @pytest.mark.parametrize("num_steps", [None, 10])
 def test_none_trajectory_length(num_steps):
-    data = {}
+    data = dict()
     data["x"] = np.random.rand(10)
     data["y"] = data["x"] + np.random.rand(10) * 0.1
 

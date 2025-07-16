@@ -50,24 +50,24 @@ PARAMETRIZED_CONSTRAINTS = {
     "dependent": T(
         type(constraints.dependent), (), dict(is_discrete=True, event_dim=2)
     ),
-    "greater_than": T(constraints.greater_than, (_a(0.0),), {}),
-    "greater_than_eq": T(constraints.greater_than_eq, (_a(0.0),), {}),
-    "less_than": T(constraints.less_than, (_a(-1.0),), {}),
-    "less_than_eq": T(constraints.less_than_eq, (_a(-1.0),), {}),
+    "greater_than": T(constraints.greater_than, (_a(0.0),), dict()),
+    "greater_than_eq": T(constraints.greater_than_eq, (_a(0.0),), dict()),
+    "less_than": T(constraints.less_than, (_a(-1.0),), dict()),
+    "less_than_eq": T(constraints.less_than_eq, (_a(-1.0),), dict()),
     "independent": T(
         constraints.independent,
         (constraints.greater_than(np.zeros((2,))),),
         dict(reinterpreted_batch_ndims=1),
     ),
-    "integer_interval": T(constraints.integer_interval, (_a(-1), _a(1)), {}),
-    "integer_greater_than": T(constraints.integer_greater_than, (_a(1),), {}),
-    "interval": T(constraints.interval, (_a(-1.0), _a(1.0)), {}),
+    "integer_interval": T(constraints.integer_interval, (_a(-1), _a(1)), dict()),
+    "integer_greater_than": T(constraints.integer_greater_than, (_a(1),), dict()),
+    "interval": T(constraints.interval, (_a(-1.0), _a(1.0)), dict()),
     "multinomial": T(
         constraints.multinomial,
         (_a(1.0),),
-        {},
+        dict(),
     ),
-    "open_interval": T(constraints.open_interval, (_a(-1.0), _a(1.0)), {}),
+    "open_interval": T(constraints.open_interval, (_a(-1.0), _a(1.0)), dict()),
     "zero_sum": T(constraints.zero_sum, (), dict(event_dim=1)),
 }
 
